@@ -1,0 +1,21 @@
+# Ignore node_modules folder
+node_modules/
+
+# Ignore build outputs
+dist/
+build/
+
+# Ignore environment variable files
+.env
+
+# Ignore log files
+*.log
+
+# Ignore MacOS system files
+.DS_Store
+
+# Ignore npm debug log
+npm-debug.log*
+
+# Ignore Yarn lock file
+yarn.lock
