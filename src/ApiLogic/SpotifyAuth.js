@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 
 const clientId = import.meta.env.VITE_CLIENT_ID;
 const redirectUri = import.meta.env.VITE_REDIRECT_URI;
+
+
 const scopes = [
     'playlist-modify-public',
     'playlist-modify-private',
@@ -17,6 +19,9 @@ const response_type = 'token';
 const authUrl = 
 `${authEndpoint}?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${encodeURIComponent(scopes.join(' '))}&response_type=${response_type}&show_dialog=true`;
 
+
+console.log(" Client ID: ", clientId );
+console.log(" Redirect URI: ", redirectUri);
 
 let accessToken;
 let expiresIn;

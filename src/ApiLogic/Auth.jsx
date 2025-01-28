@@ -21,7 +21,7 @@ const Auth = () => {
         {
             window.alert("Already Logged in");
         }else{
-            window.location = authUrl;
+            window.location.href = authUrl;
         }
         
     };

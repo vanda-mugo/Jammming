@@ -7,6 +7,7 @@ import { SpotifyAuth } from './ApiLogic/SpotifyAuth';
 import { savePlaylist } from './ApiLogic/SavePlaylist';
 import { Nav } from './Nav/Nav';
 import SearchBar from "./SearchBar/Search";
+import { getUserPlaylist } from './ApiLogic/PlaylistLogic';
 
 
 /*
@@ -20,6 +21,7 @@ function App() {
   const [playlistTracks, setPlaylistTracks] = useState([]);
   const [trackListResult, setTrackListResult] = useState([]);
   const [query, setQuery] = React.useState("");
+  const [userPlaylist, setUserPlaylist] = useState([]);
 
 
   //note that we are keeping the playlist information on the App component 
@@ -55,13 +57,19 @@ function App() {
     setPlaylistName(name);
   }
 
+  /*
+  const handleUserPlaylist = () => {
+    const userPlaylist = getUserPlaylist();
+    setUserPlaylist(userPlaylist.items);
+  }
+*/
 
   const handleSearch = async () => {
     const accessToken = SpotifyAuth.getAccessToken();
 
     if(!accessToken){
         //redirect to the login page
-        window.location = SpotifyAuth.getAuthUrl();
+        window.location.href = SpotifyAuth.getAuthUrl();
         return;
     }
 
@@ -101,6 +109,7 @@ const handleSavePlaylist = () => {
   console.log(`Saving Playlist to spotify with urls ${playlistUrls}`);
 
   savePlaylist(playlistname, playlistDescription, playlistUrls);
+  window.alert(`Playlist ${playlistName} saved to your spotify account`);
   // reset the playlist
   setPlaylistName("New Playlist");
   setPlaylistTracks([]);
@@ -124,6 +133,7 @@ const handleSavePlaylist = () => {
                     onNameChange={updateName} 
                     onSave={handleSavePlaylist} 
           />
+          
         </div>
         <div>
           <Auth />
