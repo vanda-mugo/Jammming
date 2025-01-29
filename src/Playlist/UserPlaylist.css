@@ -1,0 +1,62 @@
+.fetchItemMain{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+div .items{
+    max-width: 550px;
+    min-width: 500px;
+    background-color: rgba(43, 2, 97, 0.8);
+    height: 410px;
+    color: white;
+    margin-top: 40px;
+    text-align: left;
+    padding:0 20px;
+    border-radius: 20px;
+    overflow-y: auto;
+    position: relative;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+
+.sticky{
+    background: none;
+    border: none;
+    color: #fff;
+    background-color: rgba(43, 2, 97, 1);
+    position: sticky;
+    top: 0;
+    max-width: 500px;
+    text-align: center;
+    font-weight: 600;
+    border-radius: 10px;
+    height:60px;
+    font-size: 30px;
+    padding: 10px 0;
+}
+
+.explore{
+    background: none;
+    border: none; /* Removes the border */
+    color: #eeff00; /* Sets the text color */
+    font-size: 15px; /* Increases the text size */
+    cursor: pointer; /* Changes cursor to pointer on hover */
+
+}
+
+.explore:hover{
+    color: rgb(0, 253, 0); /* Changes text color on hover */
+    transform: scale(1.2);
+  }
+
+  .playlistname{
+    font-size: 25px;
+    padding: 10px;
+  }
+
