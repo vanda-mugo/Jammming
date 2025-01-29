@@ -7,7 +7,7 @@ import './Tracklist.css';
 // above 
 
 
-const Tracklist = ({tracks, onAdd }) => {
+const Tracklist = ({tracks, onAdd, isExistingPlaylist, playlistId }) => {
 
     //content in the return statement 
     // use the map() method to iterate over arrays and render multiple components dynamically
@@ -24,7 +24,7 @@ const Tracklist = ({tracks, onAdd }) => {
                             <div className="detailsDiv">
                                 <p>{track.artist} |  {track.album}</p>
                                 <button className="addButton" onClick={() => {
-                                    return onAdd(track);
+                                    return isExistingPlaylist? onAdd(playlistId, track.uri, track):onAdd(track);
                                 }}>
                                     +
                                 </button>

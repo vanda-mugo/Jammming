@@ -1,8 +1,9 @@
 
 *{
   box-sizing: border-box;
-  object-fit: cover;
+  object-fit: fill;
   font-family: "funnel Sans";
+  text-align: center;
 }
 
 body{
@@ -10,21 +11,24 @@ body{
   background-size: cover;
   padding: 0;
   margin: 0;
+  width: 100%;
 }
-
+.return{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  
+}
 .appReturn {
   display: flex;
   justify-content: space-evenly;
+  align-items:center;
   width: 100%;
   text-align: center;
   flex-wrap: wrap;
 }
 
 
-.return{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  
-}

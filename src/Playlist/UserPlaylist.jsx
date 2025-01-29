@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { getUserPlaylist } from '../ApiLogic/playlistLogic';
+import './UserPlaylist.css';
 
-function UserPlaylist( {setSelectedPlaylist} ) {
+function UserPlaylist( {setSelectedPlaylist, setisExistingPlaylist, setPlaylistId, fetchPlaylists} ) {
     const [playlists, setPlaylists] = useState([]);
+
+    useEffect(() => {
+        if (fetchPlaylists) {
+          fetchPlaylists.current = handleFetchPlaylist;
+        }
+      }, [fetchPlaylists]);
 
 
     const handleFetchPlaylist = async () => {
@@ -13,20 +20,31 @@ function UserPlaylist( {setSelectedPlaylist} ) {
 
     const handleInspectPlaylist = (playlist) => {
         setSelectedPlaylist(playlist);
+        // we set the state of existing playlist to true when someone clicks the Explore button 
+        setisExistingPlaylist(true);
+        setPlaylistId(playlist.id);
     };
 
     return (
-        <div>
-            <h2>Your Playlists</h2>
-            <button onClick={handleFetchPlaylist}>Fetch Playlist</button>
-            <ul>
-                {playlists !== null ? playlists.map(playlist => (
-                    <li key={playlist.id}>{playlist.name}
-                    
-                    <button onClick={() => handleInspectPlaylist(playlist)}>Explore</button></li>
-                )) : ""}
-            </ul>
+        <>
+        <div className='fetchItemMain'>
+        <div  >
+            <div className='items'>
+                <h2 className='sticky'>Your Playlists</h2>
+                <ul>
+                    {playlists !== null ? playlists.map(playlist => (
+                        <li key={playlist.id}><span className='playlistname'>{playlist.name}</span>
+                        
+                        <button className='explore' onClick={() => handleInspectPlaylist(playlist)}>Explore</button></li>
+                    )) : ""}
+                </ul>
+            </div>
         </div>
+        <div>
+            <button onClick={handleFetchPlaylist} className='saveButton'>Fetch Playlist</button>
+        </div>
+        </div>
+        </>
     );
 }
 

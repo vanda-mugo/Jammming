@@ -18,7 +18,7 @@ const getUserPlaylist = async () => {
         });
 
     // check for HTTP errors 
-    if(!response){
+    if(!response.ok){
         throw new Error(`HTTP Error: ${response.statusText}`);
     }
 
@@ -74,7 +74,7 @@ const fetchPlaylistTracks = async (playlistId) => {
              'Authorization' : `Bearer ${accessToken}`
             } 
          });
-         if (!response){
+         if (!response.ok){
             throw new Error(`HTTP Error: ${response.status} : ${response.statusText}`);
          }
 

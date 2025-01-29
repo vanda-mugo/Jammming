@@ -2,10 +2,10 @@ import React,{useState, useEffect} from "react";
 import './Playlist.css'
 
 // create a mock string 
-const Playlist = ({PlaylistName, playlistTracks, onRemove, onNameChange, onSave}) => {
+const Playlist = ({PlaylistName, playlistTracks, onRemove, onNameChange, onSave, isExistingPlaylist,playlistId}) => {
 
     const onChange = (event) => {
-        onNameChange(event.target.value);
+        isExistingPlaylist ? onNameChange(playlistId, event.target.value):onNameChange(event.target.value);
     };
 
     return (
@@ -21,7 +21,7 @@ const Playlist = ({PlaylistName, playlistTracks, onRemove, onNameChange, onSave}
                                     <p>{track.artist} : {track.album}</p>
                                 </div>
                                 <button className="removeTrack" onClick={() => {
-                                    return onRemove(track);}}>
+                                    return isExistingPlaylist ? onRemove(playlistId, track.uri, track) : onRemove(track);}}>
                                         -
                                 </button>
                             </li>
@@ -33,9 +33,18 @@ const Playlist = ({PlaylistName, playlistTracks, onRemove, onNameChange, onSave}
             <>
                 {
                     playlistTracks.length > 0 && (
-                        <button className="saveButton" onClick={onSave}>Save to Spotify</button>
+                        <button className="saveButton" onClick={onSave}>
+                            {isExistingPlaylist ? "Update Spotify Playlist" : "Save To Spotify"}
+                        </button>
                     )
                 }
+                <div>
+                        {
+                            isExistingPlaylist ? <button className="saveButton" onClick={onSave}>
+                            Create New Playlist
+                        </button>: ""
+                        }
+                </div>
             </>
         </div>
     );

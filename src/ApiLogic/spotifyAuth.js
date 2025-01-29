@@ -1,5 +1,5 @@
 const clientId = import.meta.env.VITE_CLIENT_ID;
-const redirectUri = 'http://localhost:5173';
+const redirectUri = import.meta.env.VITE_CLIENT_ID;
 
 const scopes = [
     'playlist-modify-public',

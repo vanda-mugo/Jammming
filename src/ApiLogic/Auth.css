@@ -5,7 +5,6 @@ div.login{
 div.login button{
     background-color: rgba(43, 2, 97, 0.8);
     background: linear-gradient(45deg, #eb2f00, rgba(43, 2, 97, 1)); /* Gradient effect */
-    margin-left: 30px;
     font-size: 20px;
     padding: 15px 30px;
     border: none;
@@ -13,4 +12,6 @@ div.login button{
     cursor: pointer;
     color: #fff;
     margin-top: 30px;
+    margin-bottom: 30px;
+    text-align: center;
 }
