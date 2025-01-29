@@ -3,11 +3,12 @@ import './App.css'
 import Playlist from './Playlist/Playlist';
 import Tracklist from './Tracklist/Tracklist';
 import Auth from './ApiLogic/Auth';
-import { SpotifyAuth } from './ApiLogic/SpotifyAuth';
-import { savePlaylist } from './ApiLogic/SavePlaylist';
+import { spotifyAuth } from './ApiLogic/spotifyAuth';
+import { savePlaylist } from './ApiLogic/savePlaylist';
 import { Nav } from './Nav/Nav';
 import SearchBar from "./SearchBar/Search";
 import UserPlaylist from './Playlist/UserPlaylist';
+import { fetchPlaylistTracks } from './ApiLogic/playlistLogic';
 
 
 /*
@@ -57,7 +58,7 @@ function App() {
   }
 
   const handleSearch = async () => {
-    const accessToken = SpotifyAuth.getAccessToken();
+    const accessToken = spotifyAuth.getAccessToken();
 
     if(!accessToken){
         //redirect to the login page
@@ -108,15 +109,20 @@ const handleSavePlaylist = () => {
 };
 
   //handle selected playlist 
-  const handleSelectPlaylist = (playlist) => {
+  const handleSelectPlaylist = async(playlist) => {
     setPlaylistName(playlist.name);
-    setPlaylistTracks(playlist.tracks.items.map(track => ({
-      id: track.track.id,
-      name: track.track.name,
-      artist: track.track.artists[0].name,
-      album: track.track.album.name,
-      uri: track.track.uri
-    })));
+    // now to get the tracks from the playlist and display them
+    const tracks = await fetchPlaylistTracks(playlist.id);
+    setPlaylistTracks(tracks.map(track => {
+      return{
+        id: track.track.id,
+        name: track.track.name,
+        artist: track.track.artists[0].name,
+        album: track.track.album.name,
+        uri: track.track.uri
+      };
+    }
+  ));
   };
 
   

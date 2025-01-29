@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { SpotifyAuth } from './SpotifyAuth';
+import { spotifyAuth } from './spotifyAuth';
 import './Auth.css';
 
 // uses the spotifyAuth object to return the authUrl
-const authUrl = SpotifyAuth.getAuthUrl();
+const authUrl = spotifyAuth.getAuthUrl();
 
 const Auth = () => {
 
     const [isLoggedIn , setIsLoggedIn ] = useState(false);
 
     useEffect(() => {
-        const accessToken= SpotifyAuth.getAccessToken();
+        const accessToken= spotifyAuth.getAccessToken();
         if(accessToken){
             // to check the access token which can be used to make Api requests
             console.log(accessToken);

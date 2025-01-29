@@ -1,6 +1,6 @@
 // to get the users id, we can use the following endpoint
 // get request to https://api.spotify.com/v1/me fo useres spotify id
-import { SpotifyAuth } from './SpotifyAuth';    
+import { spotifyAuth } from './spotifyAuth';    
 
 const getUserId = async (accessToken) => {
     try{
@@ -72,10 +72,10 @@ const addTracksToPlaylist = async (accessToken, playlistId, trackUris) => {
 }; 
 
 const savePlaylist = async (playlistName, playlistDescription, trackUris) => {
-    const accessToken = SpotifyAuth.getAccessToken();
+    const accessToken = spotifyAuth.getAccessToken();
 
     if (!accessToken) {
-        window.location.href = SpotifyAuth.getAuthUrl();
+        window.location.href = spotifyAuth.getAuthUrl();
         return;
     }
 

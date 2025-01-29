@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
-
 const clientId = import.meta.env.VITE_CLIENT_ID;
 const redirectUri = 'http://localhost:5173';
 
 const scopes = [
     'playlist-modify-public',
     'playlist-modify-private',
+    'playlist-read-private',
+    'playlist-read-collaborative',
     // Add other scopes as needed
 ];
 
@@ -25,7 +25,7 @@ console.log(" Redirect URI: ", redirectUri);
 let accessToken;
 let expiresIn;
 
-export const SpotifyAuth = {
+export const spotifyAuth = {
     // function to return the authorization url 
     getAuthUrl: () => {
         return authUrl;
