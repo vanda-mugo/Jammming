@@ -11,7 +11,8 @@
   },
   "dependencies": {
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "remix": "^2.15.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
@@ -24,5 +25,18 @@
     "eslint-plugin-react-refresh": "^0.4.16",
     "globals": "^15.13.0",
     "vite": "^6.0.3"
-  }
+  },
+  "description": "## Introduction Welcome to the Spotify Jamming Application! This web application allows users to create and edit playlists directly on their Spotify account. Whether you want to compile a list of your favorite songs, organize music for a party, or simply manage your Spotify library more efficiently, this app has got you covered.",
+  "main": "eslint.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vanda-mugo/Jammming.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vanda-mugo/Jammming/issues"
+  },
+  "homepage": "https://github.com/vanda-mugo/Jammming#readme"
 }
