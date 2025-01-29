@@ -1,6 +1,6 @@
 .NavComponent{
     background-color: rgb(43, 2, 97);
-    width: 100%;
+    width: 100vw;
     box-sizing: border-box;
     text-align: center;
     margin-bottom: 30px;

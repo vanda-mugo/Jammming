@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 
 const clientId = import.meta.env.VITE_CLIENT_ID;
-const redirectUri = import.meta.env.VITE_REDIRECT_URI;
-
+const redirectUri = 'http://localhost:5173';
 
 const scopes = [
     'playlist-modify-public',

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SpotifyAuth } from './SpotifyAuth';
 import './Auth.css';
 
@@ -7,17 +7,19 @@ const authUrl = SpotifyAuth.getAuthUrl();
 
 const Auth = () => {
 
+    const [isLoggedIn , setIsLoggedIn ] = useState(false);
+
     useEffect(() => {
         const accessToken= SpotifyAuth.getAccessToken();
         if(accessToken){
             // to check the access token which can be used to make Api requests
             console.log(accessToken);
+            setIsLoggedIn(true);
         }
     }, []);
 
     const handleLogin = () => {
-        const accessToken = SpotifyAuth.getAccessToken();
-        if(accessToken)
+        if(isLoggedIn)
         {
             window.alert("Already Logged in");
         }else{

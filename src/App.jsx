@@ -7,7 +7,7 @@ import { SpotifyAuth } from './ApiLogic/SpotifyAuth';
 import { savePlaylist } from './ApiLogic/SavePlaylist';
 import { Nav } from './Nav/Nav';
 import SearchBar from "./SearchBar/Search";
-import { getUserPlaylist } from './ApiLogic/PlaylistLogic';
+import UserPlaylist from './Playlist/UserPlaylist';
 
 
 /*
@@ -21,7 +21,6 @@ function App() {
   const [playlistTracks, setPlaylistTracks] = useState([]);
   const [trackListResult, setTrackListResult] = useState([]);
   const [query, setQuery] = React.useState("");
-  const [userPlaylist, setUserPlaylist] = useState([]);
 
 
   //note that we are keeping the playlist information on the App component 
@@ -56,13 +55,6 @@ function App() {
     // set the new name 
     setPlaylistName(name);
   }
-
-  /*
-  const handleUserPlaylist = () => {
-    const userPlaylist = getUserPlaylist();
-    setUserPlaylist(userPlaylist.items);
-  }
-*/
 
   const handleSearch = async () => {
     const accessToken = SpotifyAuth.getAccessToken();
@@ -114,6 +106,19 @@ const handleSavePlaylist = () => {
   setPlaylistName("New Playlist");
   setPlaylistTracks([]);
 };
+
+  //handle selected playlist 
+  const handleSelectPlaylist = (playlist) => {
+    setPlaylistName(playlist.name);
+    setPlaylistTracks(playlist.tracks.items.map(track => ({
+      id: track.track.id,
+      name: track.track.name,
+      artist: track.track.artists[0].name,
+      album: track.track.album.name,
+      uri: track.track.uri
+    })));
+  };
+
   
   // within the return we shall return the tracklist component  
   return (
@@ -133,6 +138,7 @@ const handleSavePlaylist = () => {
                     onNameChange={updateName} 
                     onSave={handleSavePlaylist} 
           />
+          <UserPlaylist setSelectedPlaylist={handleSelectPlaylist} />
           
         </div>
         <div>

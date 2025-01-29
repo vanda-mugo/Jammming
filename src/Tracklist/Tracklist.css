@@ -11,6 +11,9 @@ main{
     overflow-y: auto;
     position: relative;
     overflow-x: hidden;
+    margin-left: 20px;
+    margin-right: 20px;
+    text-align: center;
 }
 
 main .header{
