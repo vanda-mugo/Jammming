@@ -87,3 +87,42 @@ const fetchPlaylistTracks = async (playlistId) => {
 };
 
 export { fetchPlaylistTracks };
+
+// Function to remove tracks from an existing playlist
+const removeTrackFromPlaylist = async (playlistId, trackUri) => {
+    const accessToken = await spotifyAuthPKCE.getAccessToken();
+    if (!accessToken) {
+        await spotifyAuthPKCE.authorize();
+        return;
+    }
+
+    try {
+        const response = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${accessToken}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                tracks: [
+                    {
+                        uri: trackUri
+                    }
+                ]
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP Error: ${response.status} : ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        console.log('Track removed successfully:', data);
+        return data;
+    } catch (error) {
+        console.error('Failed to remove track from playlist:', error);
+        throw error;
+    }
+};
+
+export { removeTrackFromPlaylist };

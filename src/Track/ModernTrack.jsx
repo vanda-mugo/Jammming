@@ -45,6 +45,15 @@ const ModernTrack = ({ track, onAdd, onRemove, isRemoval, isExistingPlaylist, pl
         }
     };
 
+    const handleMoreOptions = () => {
+        console.log('More options clicked for track:', track.name);
+        // For now, let's open the track on Spotify
+        if (track.uri) {
+            const spotifyUrl = track.uri.replace('spotify:track:', 'https://open.spotify.com/track/');
+            window.open(spotifyUrl, '_blank');
+        }
+    };
+
     const formatDuration = (ms) => {
         const minutes = Math.floor(ms / 60000);
         const seconds = Math.floor((ms % 60000) / 1000);
@@ -132,8 +141,9 @@ const ModernTrack = ({ track, onAdd, onRemove, isRemoval, isExistingPlaylist, pl
                 
                 <button 
                     className="track-button more-button"
-                    title="More options"
-                    aria-label={`More options for ${track.name}`}
+                    onClick={handleMoreOptions}
+                    title="Open on Spotify"
+                    aria-label={`Open ${track.name} on Spotify`}
                 >
                     <svg viewBox="0 0 24 24" className="button-icon">
                         <path fill="currentColor" d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>

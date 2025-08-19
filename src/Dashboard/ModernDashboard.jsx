@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { spotifyAuthPKCE } from '../ApiLogic/spotifyAuthPKCE';
 import { savePlaylist } from '../ApiLogic/savePlaylist';
-import { fetchPlaylistTracks, getUserPlaylist } from '../ApiLogic/playlistLogic';
+import { fetchPlaylistTracks, getUserPlaylist, removeTrackFromPlaylist } from '../ApiLogic/playlistLogic';
 import './ModernDashboard.css';
 import ModernSearchBar from '../SearchBar/ModernSearchBar';
 import ModernTrack from '../Track/ModernTrack';
@@ -154,8 +154,44 @@ const ModernDashboard = ({ onAuthChange }) => {
     // };
 
     const removeTrackFromExistingPlaylist = async (playlistId, trackUri, track) => {
-        // Implementation for removing from existing playlist
         console.log('Removing track from existing playlist:', { playlistId, trackUri, track });
+        
+        if (!playlistId || !trackUri) {
+            console.error('Missing playlistId or trackUri');
+            return;
+        }
+
+        setIsLoading(true);
+        try {
+            // Call the API to remove the track
+            await removeTrackFromPlaylist(playlistId, trackUri);
+            
+            // Update the local state to remove the track from the current playlist view
+            const updatedTracks = playlistTracks.filter(t => t.uri !== trackUri);
+            setPlaylistTracks(updatedTracks);
+            
+            // Also update the playlist track count in userPlaylists if needed
+            const updatedPlaylists = userPlaylists.map(playlist => {
+                if (playlist.id === playlistId) {
+                    return {
+                        ...playlist,
+                        tracks: {
+                            ...playlist.tracks,
+                            total: playlist.tracks.total - 1
+                        }
+                    };
+                }
+                return playlist;
+            });
+            setUserPlaylists(updatedPlaylists);
+            
+            console.log('Track successfully removed from playlist');
+        } catch (error) {
+            console.error('Failed to remove track from playlist:', error);
+            // You might want to show a user-friendly error message here
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     // Save new playlist
@@ -390,9 +426,22 @@ const ModernDashboard = ({ onAuthChange }) => {
             </main>
 
             {/* Right Panel - Playlist Creation */}
-            {newPlaylistTracks.length > 0 && (
+            {(activeView === 'create' || newPlaylistTracks.length > 0) && (
                 <aside className="playlist-panel">
                     <div className="playlist-panel-header">
+                        <button 
+                            className="panel-close-btn"
+                            onClick={() => {
+                                setActiveView('home');
+                                setNewPlaylistTracks([]);
+                                setNewPlaylistName("My New Playlist");
+                            }}
+                            title="Close playlist panel"
+                        >
+                            <svg viewBox="0 0 24 24" width="16" height="16">
+                                <path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                            </svg>
+                        </button>
                         <h3 className="panel-title">
                             <svg viewBox="0 0 24 24" width="18" height="18">
                                 <path fill="currentColor" d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
@@ -463,6 +512,17 @@ const ModernDashboard = ({ onAuthChange }) => {
                         </button>
                     </div>
                 </aside>
+            )}
+
+            {/* Floating Playlist Indicator */}
+            {newPlaylistTracks.length > 0 && activeView !== 'create' && (
+                <button 
+                    className="playlist-indicator"
+                    onClick={() => setActiveView('create')}
+                    title={`View playlist (${newPlaylistTracks.length} songs)`}
+                >
+                    {newPlaylistTracks.length}
+                </button>
             )}
         </div>
     );
@@ -716,6 +776,7 @@ const ModernDashboard = ({ onAuthChange }) => {
                                 track={track}
                                 onRemove={removeTrackFromExistingPlaylist}
                                 isRemoval={true}
+                                isExistingPlaylist={true}
                                 index={index}
                                 playlistId={currentPlaylist.id}
                             />
