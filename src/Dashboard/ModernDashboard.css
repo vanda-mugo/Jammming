@@ -434,6 +434,42 @@
     min-height: 0;
 }
 
+/* Improve content centering on desktop */
+.home-view,
+.search-view,
+.library-view,
+.playlist-view {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* Better spacing for desktop content */
+.search-results,
+.library-content,
+.playlist-tracks {
+    margin-top: 24px;
+}
+
+/* Improve content area scrolling */
+.content-area::-webkit-scrollbar {
+    width: 8px;
+}
+
+.content-area::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+}
+
+.content-area::-webkit-scrollbar-thumb {
+    background: rgba(29, 185, 84, 0.3);
+    border-radius: 4px;
+}
+
+.content-area::-webkit-scrollbar-thumb:hover {
+    background: rgba(29, 185, 84, 0.5);
+}
+
 /* Right Panel - Playlist Creation */
 .playlist-panel {
     position: fixed;
@@ -451,6 +487,13 @@
     z-index: 100;
     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
     animation: slideInRight 0.3s ease-out;
+}
+
+/* Desktop optimized playlist panel */
+.playlist-panel.desktop-optimized {
+    animation: none;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(29, 185, 84, 0.2);
 }
 
 @keyframes slideInRight {
@@ -519,6 +562,11 @@
 .playlist-indicator:hover {
     transform: scale(1.1);
     box-shadow: 0 12px 40px rgba(29, 185, 84, 0.4);
+}
+
+/* Hide on mobile/tablet only screens larger than 1440px */
+.playlist-indicator.mobile-tablet-only {
+    display: flex;
 }
 
 @keyframes pulse {
@@ -959,6 +1007,27 @@
     background: rgba(255, 255, 255, 0.03);
     border-radius: 8px;
     overflow: hidden;
+    max-height: calc(100vh - 350px); /* Better height constraint for desktop scrolling */
+    overflow-y: auto;
+}
+
+/* Custom scrollbar for better desktop experience */
+.tracks-grid::-webkit-scrollbar {
+    width: 8px;
+}
+
+.tracks-grid::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+}
+
+.tracks-grid::-webkit-scrollbar-thumb {
+    background: rgba(29, 185, 84, 0.3);
+    border-radius: 4px;
+}
+
+.tracks-grid::-webkit-scrollbar-thumb:hover {
+    background: rgba(29, 185, 84, 0.5);
 }
 
 .tracks-header {
@@ -1065,6 +1134,28 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 24px;
+    max-height: calc(100vh - 280px);
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+/* Custom scrollbar for playlists grid */
+.playlists-grid::-webkit-scrollbar {
+    width: 8px;
+}
+
+.playlists-grid::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+}
+
+.playlists-grid::-webkit-scrollbar-thumb {
+    background: rgba(29, 185, 84, 0.3);
+    border-radius: 4px;
+}
+
+.playlists-grid::-webkit-scrollbar-thumb:hover {
+    background: rgba(29, 185, 84, 0.5);
 }
 
 .library-playlist-card {
@@ -1466,7 +1557,130 @@
     color: #ffffff;
 }
 
+/* Desktop Optimizations for Large Screens */
+@media (min-width: 1440px) {
+    .modern-dashboard {
+        grid-template-columns: 300px 1fr 380px; /* Three column layout for large desktops */
+        max-width: none;
+    }
+    
+    .modern-dashboard.no-playlist {
+        grid-template-columns: 300px 1fr; /* Two column when no playlist */
+    }
+    
+    /* Wider sidebar for better navigation */
+    .dashboard-sidebar {
+        width: 300px;
+    }
+    
+    /* Main content area optimizations */
+    .content-area {
+        padding: 32px 40px;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+    
+    /* Better playlist panel positioning for large screens */
+    .playlist-panel {
+        position: relative;
+        top: 0;
+        right: 0;
+        width: 100%;
+        max-height: none;
+        height: calc(100vh - 140px);
+        animation: none;
+    }
+    
+    /* Hide floating indicator on large desktops since we have fixed panel */
+    .playlist-indicator {
+        display: none;
+    }
+    
+    /* Improved grid layouts */
+    .playlist-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 24px;
+    }
+    
+    .tracks-grid {
+        gap: 4px;
+    }
+    
+    /* Better header spacing */
+    .main-header {
+        padding: 20px 40px;
+        gap: 40px;
+    }
+}
+
+@media (min-width: 1200px) and (max-width: 1439px) {
+    .modern-dashboard {
+        grid-template-columns: 280px 1fr;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+    
+    .content-area {
+        padding: 28px 36px;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+    
+    /* Better playlist panel positioning for medium-large screens */
+    .playlist-panel {
+        top: 80px;
+        right: 32px;
+        width: 380px;
+        max-height: calc(100vh - 120px);
+    }
+    
+    .playlist-grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 20px;
+    }
+    
+    .main-header {
+        padding: 18px 36px;
+        gap: 36px;
+    }
+}
+
 /* Responsive Design */
+@media (max-width: 1199px) and (min-width: 1025px) {
+    .modern-dashboard {
+        grid-template-columns: 260px 1fr;
+    }
+    
+    .playlist-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    }
+    
+    .playlist-cover-large {
+        width: 200px;
+        height: 200px;
+    }
+    
+    .playlist-title {
+        font-size: 36px;
+    }
+    
+    .playlist-name-input {
+        font-size: 36px;
+    }
+    
+    .header-search {
+        max-width: 320px;
+    }
+    
+    /* Improved playlist panel positioning */
+    .playlist-panel {
+        top: 90px;
+        right: 28px;
+        width: 360px;
+        max-height: calc(100vh - 130px);
+    }
+}
+
 @media (max-width: 1024px) {
     .modern-dashboard {
         grid-template-columns: 220px 1fr;

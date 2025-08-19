@@ -425,9 +425,9 @@ const ModernDashboard = ({ onAuthChange }) => {
                 </div>
             </main>
 
-            {/* Right Panel - Playlist Creation */}
+            {/* Right Panel - Playlist Creation (for desktop layout optimization) */}
             {(activeView === 'create' || newPlaylistTracks.length > 0) && (
-                <aside className="playlist-panel">
+                <aside className="playlist-panel desktop-optimized">
                     <div className="playlist-panel-header">
                         <button 
                             className="panel-close-btn"
@@ -514,10 +514,10 @@ const ModernDashboard = ({ onAuthChange }) => {
                 </aside>
             )}
 
-            {/* Floating Playlist Indicator */}
+            {/* Floating Playlist Indicator (hidden on large desktops) */}
             {newPlaylistTracks.length > 0 && activeView !== 'create' && (
                 <button 
-                    className="playlist-indicator"
+                    className="playlist-indicator mobile-tablet-only"
                     onClick={() => setActiveView('create')}
                     title={`View playlist (${newPlaylistTracks.length} songs)`}
                 >
