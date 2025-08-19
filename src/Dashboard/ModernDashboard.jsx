@@ -212,7 +212,7 @@ const ModernDashboard = ({ onAuthChange }) => {
     }
 
     return (
-        <div className="modern-dashboard">
+        <div className={`modern-dashboard ${newPlaylistTracks.length === 0 ? 'no-playlist' : ''}`}>
             {/* Mobile Overlay */}
             <div 
                 className={`mobile-overlay ${isMobileMenuOpen ? 'open' : ''}`}
@@ -378,6 +378,82 @@ const ModernDashboard = ({ onAuthChange }) => {
                     {renderActiveView()}
                 </div>
             </main>
+
+            {/* Right Panel - Playlist Creation */}
+            {newPlaylistTracks.length > 0 && (
+                <aside className="playlist-panel">
+                    <div className="playlist-panel-header">
+                        <h3 className="panel-title">
+                            <svg viewBox="0 0 24 24" width="18" height="18">
+                                <path fill="currentColor" d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+                            </svg>
+                            New Playlist
+                        </h3>
+                        <p className="panel-subtitle">{newPlaylistTracks.length} songs added</p>
+                    </div>
+
+                    <div className="playlist-panel-content">
+                        <div className="mini-playlist-cover">
+                            <svg viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+                            </svg>
+                        </div>
+                        <input 
+                            type="text"
+                            value={newPlaylistName}
+                            onChange={(e) => setNewPlaylistName(e.target.value)}
+                            className="mini-playlist-input"
+                            placeholder="My Playlist"
+                        />
+                        <div className="mini-playlist-info">
+                            By {user?.display_name} • Ready to save
+                        </div>
+
+                        <div className="mini-track-list">
+                            {newPlaylistTracks.map((track, index) => (
+                                <div key={`mini-${track.id}-${index}`} className="mini-track-item">
+                                    <div className="mini-track-info">
+                                        <div className="mini-track-title" title={track.name}>
+                                            {track.name}
+                                        </div>
+                                        <div className="mini-track-artist" title={track.artist}>
+                                            {track.artist}
+                                        </div>
+                                    </div>
+                                    <button 
+                                        className="mini-remove-btn"
+                                        onClick={() => removeTrackFromNewPlaylist(track)}
+                                        title="Remove from playlist"
+                                    >
+                                        <svg viewBox="0 0 24 24">
+                                            <path fill="currentColor" d="M19 13H5v-2h14v2z"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="playlist-panel-footer">
+                        <button 
+                            className="panel-save-btn"
+                            onClick={saveNewPlaylist}
+                            disabled={isLoading}
+                        >
+                            {isLoading ? 'Saving...' : 'Save to Spotify'}
+                        </button>
+                        <button 
+                            className="panel-cancel-btn"
+                            onClick={() => {
+                                setNewPlaylistTracks([]);
+                                setNewPlaylistName("My New Playlist");
+                            }}
+                        >
+                            Clear Playlist
+                        </button>
+                    </div>
+                </aside>
+            )}
         </div>
     );
 
@@ -468,6 +544,27 @@ const ModernDashboard = ({ onAuthChange }) => {
     function renderSearchView() {
         return (
             <div className="search-view">
+                {newPlaylistTracks.length > 0 && (
+                    <div className="playlist-progress-banner">
+                        <div className="progress-content">
+                            <svg viewBox="0 0 24 24" className="progress-icon">
+                                <path fill="currentColor" d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+                            </svg>
+                            <div className="progress-text">
+                                <span className="progress-title">New Playlist</span>
+                                <span className="progress-count">{newPlaylistTracks.length} songs added</span>
+                            </div>
+                            <button 
+                                className="view-playlist-btn"
+                                onClick={() => setActiveView('create')}
+                                title="View your playlist"
+                            >
+                                View Playlist
+                            </button>
+                        </div>
+                    </div>
+                )}
+                
                 {searchResults.length > 0 ? (
                     <>
                         <div className="search-header">
@@ -476,6 +573,13 @@ const ModernDashboard = ({ onAuthChange }) => {
                         </div>
                         
                         <div className="search-results">
+                            <div className="tracks-header">
+                                <span>#</span>
+                                <span>Title</span>
+                                <span>Album</span>
+                                <span>Duration</span>
+                                <span>Action</span>
+                            </div>
                             <div className="tracks-grid">
                                 {searchResults.map((track, index) => (
                                     <ModernTrack
@@ -485,6 +589,7 @@ const ModernDashboard = ({ onAuthChange }) => {
                                         isRemoval={false}
                                         index={index}
                                         showAddToPlaylist={true}
+                                        isInNewPlaylist={newPlaylistTracks.some(t => t.id === track.id)}
                                     />
                                 ))}
                             </div>

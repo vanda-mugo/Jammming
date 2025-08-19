@@ -2,7 +2,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import './ModernTrack.css';
 
-const ModernTrack = ({ track, onAdd, onRemove, isRemoval, isExistingPlaylist, playlistId, index, showAddToPlaylist = false }) => {
+const ModernTrack = ({ track, onAdd, onRemove, isRemoval, isExistingPlaylist, playlistId, index, showAddToPlaylist = false, isInNewPlaylist = false }) => {
     const [isLoading, setIsLoading] = useState(false);
 
     const handleAddTrack = async () => {
@@ -39,6 +39,12 @@ const ModernTrack = ({ track, onAdd, onRemove, isRemoval, isExistingPlaylist, pl
         }
     };
 
+    const formatDuration = (ms) => {
+        const minutes = Math.floor(ms / 60000);
+        const seconds = Math.floor((ms % 60000) / 1000);
+        return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    };
+
     const truncateText = (text, maxLength = 25) => {
         if (text && text.length > maxLength) {
             return text.substring(0, maxLength) + '...';
@@ -57,24 +63,27 @@ const ModernTrack = ({ track, onAdd, onRemove, isRemoval, isExistingPlaylist, pl
             </div>
 
             <div className="track-info">
-                <div className="track-main-info">
-                    <div className="track-title-container">
-                        <h3 className="track-title" title={track.name}>
-                            {truncateText(track.name, 23)}
-                        </h3>
-                        {track.explicit && (
-                            <span className="explicit-badge" title="Explicit content">
-                                E
-                            </span>
-                        )}
-                    </div>
-                    <p className="track-artist" title={track.artist}>
-                        {truncateText(track.artist, 18)}
-                    </p>
+                <div className="track-title-container">
+                    <h3 className="track-title" title={track.name}>
+                        {truncateText(track.name, 40)}
+                    </h3>
+                    {track.explicit && (
+                        <span className="explicit-badge" title="Explicit content">
+                            E
+                        </span>
+                    )}
                 </div>
-                <div className="track-album">
-                    <p title={track.album}>{truncateText(track.album, 25)}</p>
-                </div>
+                <p className="track-artist" title={track.artist}>
+                    {truncateText(track.artist, 30)}
+                </p>
+            </div>
+
+            <div className="track-album">
+                <p title={track.album}>{truncateText(track.album, 30)}</p>
+            </div>
+
+            <div className="track-duration">
+                {track.duration_ms ? formatDuration(track.duration_ms) : '--:--'}
             </div>
 
             <div className="track-actions">
@@ -88,6 +97,17 @@ const ModernTrack = ({ track, onAdd, onRemove, isRemoval, isExistingPlaylist, pl
                     >
                         <svg viewBox="0 0 24 24" className="button-icon">
                             <path fill="currentColor" d="M19 13H5v-2h14v2z"/>
+                        </svg>
+                    </button>
+                ) : isInNewPlaylist ? (
+                    <button 
+                        className="track-button added-button"
+                        disabled={true}
+                        title="Added to playlist"
+                        aria-label={`${track.name} added to playlist`}
+                    >
+                        <svg viewBox="0 0 24 24" className="button-icon">
+                            <path fill="currentColor" d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
                         </svg>
                     </button>
                 ) : (
@@ -137,7 +157,8 @@ ModernTrack.propTypes = {
     isExistingPlaylist: PropTypes.bool,
     playlistId: PropTypes.string,
     index: PropTypes.number,
-    showAddToPlaylist: PropTypes.bool
+    showAddToPlaylist: PropTypes.bool,
+    isInNewPlaylist: PropTypes.bool
 };
 
 ModernTrack.defaultProps = {
