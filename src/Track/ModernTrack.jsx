@@ -6,13 +6,19 @@ const ModernTrack = ({ track, onAdd, onRemove, isRemoval, isExistingPlaylist, pl
     const [isLoading, setIsLoading] = useState(false);
 
     const handleAddTrack = async () => {
-        if (isLoading) return;
+        console.log('handleAddTrack called for track:', track.name);
+        if (isLoading) {
+            console.log('Track is loading, ignoring click');
+            return;
+        }
         
         setIsLoading(true);
         try {
             if (isExistingPlaylist) {
+                console.log('Adding to existing playlist');
                 await onAdd(playlistId, track.uri, track);
             } else {
+                console.log('Adding to new playlist');
                 onAdd(track);
             }
         } catch (error) {

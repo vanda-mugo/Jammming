@@ -134,8 +134,12 @@ const ModernDashboard = ({ onAuthChange }) => {
 
     // Track management
     const addTrackToNewPlaylist = (track) => {
+        console.log('addTrackToNewPlaylist called with:', track);
         if (!newPlaylistTracks.find(t => t.id === track.id)) {
             setNewPlaylistTracks([...newPlaylistTracks, track]);
+            console.log('Track added to playlist');
+        } else {
+            console.log('Track already in playlist');
         }
     };
 
@@ -176,9 +180,11 @@ const ModernDashboard = ({ onAuthChange }) => {
     };
 
     const startNewPlaylist = () => {
+        console.log('startNewPlaylist called');
         setNewPlaylistTracks([]);
         setNewPlaylistName("My New Playlist");
         setActiveView('create');
+        console.log('Active view set to create');
     };
 
     const handleLogout = () => {
@@ -364,7 +370,11 @@ const ModernDashboard = ({ onAuthChange }) => {
                     </div>
 
                     <div className="header-actions">
-                        <button className="upgrade-btn">
+                        <button 
+                            className="upgrade-btn"
+                            onClick={() => window.open('https://www.spotify.com/premium/', '_blank')}
+                            title="Get Spotify Premium"
+                        >
                             <svg viewBox="0 0 24 24" className="premium-icon">
                                 <path fill="currentColor" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                             </svg>
