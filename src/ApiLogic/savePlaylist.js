@@ -1,6 +1,6 @@
 // to get the users id, we can use the following endpoint
 // get request to https://api.spotify.com/v1/me fo useres spotify id
-import { spotifyAuth } from './spotifyAuth';    
+import { spotifyAuthPKCE } from './spotifyAuthPKCE';    
 
 const getUserId = async (accessToken) => {
     try{
@@ -18,6 +18,7 @@ const getUserId = async (accessToken) => {
         return data.id;
     }catch(error){
         console.error("Error fetching data from the Spotify API", error);
+        throw error;
     }
 };
 
@@ -72,10 +73,10 @@ const addTracksToPlaylist = async (accessToken, playlistId, trackUris) => {
 }; 
 
 const savePlaylist = async (playlistName, playlistDescription, trackUris) => {
-    const accessToken = spotifyAuth.getAccessToken();
+    const accessToken = await spotifyAuthPKCE.getAccessToken();
 
     if (!accessToken) {
-        window.location.href = spotifyAuth.getAuthUrl();
+        await spotifyAuthPKCE.authorize();
         return;
     }
 
@@ -87,6 +88,7 @@ const savePlaylist = async (playlistName, playlistDescription, trackUris) => {
         console.log('Playlist saved successfully!');
     } catch (error) {
         console.error('Error saving playlist:', error);
+        throw error;
     }
 };
 

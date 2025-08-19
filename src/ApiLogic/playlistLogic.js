@@ -1,11 +1,11 @@
-import { spotifyAuth } from "./spotifyAuth";
+import { spotifyAuthPKCE } from "./spotifyAuthPKCE";
 
 
 const getUserPlaylist = async () => {
     // endpoint https://api.spotify.com/v1/playlists/{playlist_id}
-    const accessToken = spotifyAuth.getAccessToken();
+    const accessToken = await spotifyAuthPKCE.getAccessToken();
     if(!accessToken){
-        window.location.href = spotifyAuth.getAuthUrl();
+        await spotifyAuthPKCE.authorize();
         return;
     }
     console.log("access token" , accessToken);
@@ -62,9 +62,9 @@ this is just a run down of what is important in the scope however the properties
 // simply put we shall be using the track object 
 
 const fetchPlaylistTracks = async (playlistId) => {
-    const accessToken = spotifyAuth.getAccessToken();
+    const accessToken = await spotifyAuthPKCE.getAccessToken();
     if(!accessToken){
-        window.location.href = spotifyAuth.getAuthUrl();
+        await spotifyAuthPKCE.authorize();
         return;
     }
     try{

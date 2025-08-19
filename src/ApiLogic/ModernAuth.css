@@ -1,0 +1,288 @@
+/* Modern Auth Component - Following Spotify Design Guidelines */
+
+.auth-container {
+    padding: 2rem;
+    background: linear-gradient(135deg, #1DB954 0%, #1ed760 100%);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    margin: 2rem auto;
+    backdrop-filter: blur(10px);
+}
+
+/* Loading State */
+.auth-loading {
+    text-align: center;
+    color: white;
+    padding: 2rem;
+}
+
+.spotify-loader {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top: 3px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Error State */
+.auth-error {
+    text-align: center;
+    color: white;
+    padding: 2rem;
+}
+
+.error-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.retry-button {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 2px solid white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+}
+
+.retry-button:hover {
+    background: white;
+    color: #1DB954;
+    transform: translateY(-2px);
+}
+
+/* Login Section */
+.login-section {
+    text-align: center;
+    color: white;
+}
+
+.login-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.spotify-branding {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.spotify-icon {
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+}
+
+.spotify-logo {
+    width: 48px;
+    height: 48px;
+    color: white;
+}
+
+.spotify-branding h1 {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 700;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.spotify-branding p {
+    margin: 0;
+    font-size: 1.1rem;
+    opacity: 0.9;
+    font-weight: 400;
+}
+
+/* Login Button - Following Spotify Brand Guidelines */
+.spotify-login-button {
+    background: white;
+    color: #191414;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    min-height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.spotify-login-button:hover {
+    background: #f0f0f0;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.spotify-login-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.button-content {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.spotify-button-icon {
+    width: 24px;
+    height: 24px;
+    color: #1DB954;
+}
+
+/* Login Info */
+.login-info {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    line-height: 1.5;
+}
+
+.login-info p {
+    margin: 0.5rem 0;
+}
+
+.terms {
+    font-size: 0.8rem !important;
+}
+
+.terms a {
+    color: white;
+    text-decoration: underline;
+    opacity: 0.9;
+}
+
+.terms a:hover {
+    opacity: 1;
+}
+
+/* User Section */
+.user-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+    padding: 1rem;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.user-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    object-fit: cover;
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.user-name {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.user-subscription {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    text-transform: capitalize;
+}
+
+.logout-button {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 0.75rem;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logout-button:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+
+.logout-icon {
+    width: 20px;
+    height: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .auth-container {
+        margin: 1rem;
+        padding: 1.5rem;
+        max-width: none;
+    }
+    
+    .spotify-branding h1 {
+        font-size: 1.75rem;
+    }
+    
+    .spotify-icon {
+        width: 64px;
+        height: 64px;
+    }
+    
+    .spotify-logo {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .user-section {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+
+/* Focus States for Accessibility */
+.spotify-login-button:focus,
+.logout-button:focus,
+.retry-button:focus {
+    outline: 2px solid white;
+    outline-offset: 2px;
+}
+
+/* Dark Theme Support */
+@media (prefers-color-scheme: dark) {
+    .terms a {
+        color: rgba(255, 255, 255, 0.9);
+    }
+}

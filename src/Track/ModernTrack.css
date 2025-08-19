@@ -1,0 +1,309 @@
+/* Modern Track Component - Spotify-inspired Design */
+
+.modern-track {
+    display: grid;
+    grid-template-columns: 40px 1fr auto;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.modern-track:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(29, 185, 84, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.modern-track.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.modern-track.loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* Track Index/Number */
+.track-index {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+}
+
+.track-number {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.875rem;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+}
+
+.track-loader {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top: 2px solid #1DB954;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Track Information */
+.track-info {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+    min-width: 0; /* Important for text truncation */
+}
+
+.track-main-info {
+    min-width: 0; /* Important for text truncation */
+}
+
+.track-title-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.track-title {
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.3;
+}
+
+.explicit-badge {
+    background: rgba(255, 255, 255, 0.9);
+    color: #191414;
+    font-size: 0.625rem;
+    font-weight: 700;
+    padding: 0.125rem 0.25rem;
+    border-radius: 2px;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.track-artist {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.875rem;
+    font-weight: 400;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.2;
+}
+
+.track-album {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+}
+
+.track-album p {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.875rem;
+    font-weight: 400;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: right;
+}
+
+/* Track Actions */
+.track-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modern-track:hover .track-actions {
+    opacity: 1;
+}
+
+.track-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.track-button:hover {
+    transform: scale(1.05);
+}
+
+.track-button:active {
+    transform: scale(0.95);
+}
+
+.track-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.button-icon {
+    width: 20px;
+    height: 20px;
+}
+
+/* Add Button */
+.add-button {
+    background: rgba(29, 185, 84, 0.2);
+    color: #1DB954;
+    border: 1px solid rgba(29, 185, 84, 0.3);
+}
+
+.add-button:hover {
+    background: rgba(29, 185, 84, 0.3);
+    border-color: #1DB954;
+    color: white;
+}
+
+/* Remove Button */
+.remove-button {
+    background: rgba(229, 57, 53, 0.2);
+    color: #e53935;
+    border: 1px solid rgba(229, 57, 53, 0.3);
+}
+
+.remove-button:hover {
+    background: rgba(229, 57, 53, 0.3);
+    border-color: #e53935;
+    color: white;
+}
+
+/* More Button */
+.more-button {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.more-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+/* Focus States for Accessibility */
+.track-button:focus {
+    outline: 2px solid #1DB954;
+    outline-offset: 2px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .modern-track {
+        grid-template-columns: 32px 1fr auto;
+        gap: 0.75rem;
+        padding: 0.75rem 0.75rem;
+    }
+    
+    .track-info {
+        grid-template-columns: 1fr;
+        gap: 0.25rem;
+    }
+    
+    .track-album {
+        display: none; /* Hide album on mobile for space */
+    }
+    
+    .track-title {
+        font-size: 0.9rem;
+    }
+    
+    .track-artist {
+        font-size: 0.8rem;
+    }
+    
+    .track-button {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .button-icon {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .track-actions {
+        opacity: 1; /* Always show on very small screens */
+    }
+    
+    .track-actions .more-button {
+        display: none; /* Hide more button on small screens */
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .modern-track {
+        border: 2px solid rgba(255, 255, 255, 0.5);
+    }
+    
+    .track-title {
+        color: white;
+    }
+    
+    .track-artist,
+    .track-album p {
+        color: rgba(255, 255, 255, 0.9);
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .modern-track,
+    .track-button,
+    .track-actions {
+        transition: none;
+    }
+    
+    .track-loader {
+        animation: none;
+    }
+    
+    .modern-track.loading::after {
+        animation: none;
+    }
+}

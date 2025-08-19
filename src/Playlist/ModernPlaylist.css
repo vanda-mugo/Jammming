@@ -1,0 +1,438 @@
+/* Modern Playlist Component - Spotify-inspired Design */
+
+.modern-playlist {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 2rem;
+    max-width: 600px;
+    width: 100%;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* Playlist Header */
+.playlist-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.playlist-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #1DB954, #1ed760);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 16px rgba(29, 185, 84, 0.3);
+}
+
+.playlist-svg {
+    width: 40px;
+    height: 40px;
+    color: white;
+}
+
+.playlist-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-width: 0;
+}
+
+.playlist-type {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.playlist-name {
+    color: white;
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    margin-left: -0.5rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    word-break: break-word;
+    line-height: 1.2;
+}
+
+.playlist-name:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #1DB954;
+}
+
+.name-edit-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.name-input {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid #1DB954;
+    border-radius: 6px;
+    color: white;
+    font-size: 2rem;
+    font-weight: 700;
+    padding: 0.25rem 0.5rem;
+    outline: none;
+    width: 100%;
+    font-family: inherit;
+}
+
+.name-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.name-edit-actions {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.name-save-btn,
+.name-cancel-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.name-save-btn:hover {
+    background: #1DB954;
+}
+
+.name-cancel-btn:hover {
+    background: #e53935;
+}
+
+.playlist-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.875rem;
+}
+
+.track-count {
+    font-weight: 500;
+}
+
+.duration-separator {
+    opacity: 0.5;
+}
+
+.save-button {
+    background: #1DB954;
+    color: white;
+    border: none;
+    padding: 0.875rem 1.5rem;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 16px rgba(29, 185, 84, 0.3);
+    white-space: nowrap;
+    height: fit-content;
+}
+
+.save-button:hover {
+    background: #1ed760;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(29, 185, 84, 0.4);
+}
+
+.save-button:active {
+    transform: translateY(0);
+}
+
+.save-button:disabled {
+    background: rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.6);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.save-icon {
+    width: 18px;
+    height: 18px;
+}
+
+.save-loader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.save-spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top: 2px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Playlist Content */
+.playlist-content {
+    min-height: 200px;
+}
+
+.playlist-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 2rem;
+    color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+}
+
+.loading-spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top: 3px solid #1DB954;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+}
+
+/* Empty State */
+.empty-playlist {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 2rem;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.empty-icon {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 1.5rem;
+    opacity: 0.5;
+}
+
+.empty-svg {
+    width: 100%;
+    height: 100%;
+    color: currentColor;
+}
+
+.empty-playlist h3 {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+}
+
+.empty-playlist p {
+    font-size: 1rem;
+    margin: 0;
+    opacity: 0.8;
+    line-height: 1.5;
+}
+
+/* Track List */
+.track-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.track-list-header {
+    display: grid;
+    grid-template-columns: 40px 1fr auto auto;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 0.5rem;
+}
+
+.header-index {
+    text-align: center;
+}
+
+.header-title {
+    text-align: left;
+}
+
+.header-album {
+    text-align: right;
+}
+
+.header-actions {
+    width: 80px; /* Space for action buttons */
+}
+
+/* Focus States */
+.save-button:focus,
+.name-save-btn:focus,
+.name-cancel-btn:focus {
+    outline: 2px solid white;
+    outline-offset: 2px;
+}
+
+.name-input:focus {
+    outline: none;
+    border-color: #1ed760;
+    box-shadow: 0 0 0 1px #1ed760;
+}
+
+.playlist-name:focus {
+    outline: 2px solid #1DB954;
+    outline-offset: 2px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .modern-playlist {
+        padding: 1.5rem;
+    }
+    
+    .playlist-header {
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+    }
+    
+    .playlist-icon {
+        width: 64px;
+        height: 64px;
+        border-radius: 10px;
+    }
+    
+    .playlist-svg {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .playlist-name {
+        font-size: 1.75rem;
+        text-align: center;
+    }
+    
+    .name-input {
+        font-size: 1.75rem;
+    }
+    
+    .track-list-header {
+        grid-template-columns: 32px 1fr auto;
+        gap: 0.75rem;
+    }
+    
+    .header-album {
+        display: none; /* Hide album header on mobile */
+    }
+    
+    .header-actions {
+        width: 60px;
+    }
+}
+
+@media (max-width: 480px) {
+    .modern-playlist {
+        padding: 1rem;
+    }
+    
+    .playlist-name {
+        font-size: 1.5rem;
+    }
+    
+    .name-input {
+        font-size: 1.5rem;
+    }
+    
+    .save-button {
+        padding: 0.75rem 1.25rem;
+        font-size: 0.8rem;
+    }
+    
+    .empty-playlist {
+        padding: 2rem 1rem;
+    }
+    
+    .empty-playlist h3 {
+        font-size: 1.25rem;
+    }
+    
+    .empty-playlist p {
+        font-size: 0.9rem;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .modern-playlist {
+        border: 2px solid rgba(255, 255, 255, 0.5);
+    }
+    
+    .playlist-header {
+        border-bottom-color: rgba(255, 255, 255, 0.5);
+    }
+    
+    .playlist-name {
+        color: white;
+    }
+    
+    .name-input {
+        border-color: #1DB954;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .save-button,
+    .playlist-name,
+    .name-save-btn,
+    .name-cancel-btn,
+    .name-input {
+        transition: none;
+    }
+    
+    .save-spinner,
+    .loading-spinner {
+        animation: none;
+    }
+}
