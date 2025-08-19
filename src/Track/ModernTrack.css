@@ -232,26 +232,72 @@
 /* Responsive Design */
 @media (max-width: 768px) {
     .modern-track {
-        grid-template-columns: 32px 1fr auto;
+        grid-template-columns: 1fr auto;
+        padding: 0.75rem;
         gap: 0.75rem;
-        padding: 0.75rem 0.75rem;
+    }
+    
+    .track-index {
+        display: none;
     }
     
     .track-info {
-        grid-template-columns: 1fr;
+        min-width: 0;
+    }
+    
+    .track-main-info {
         gap: 0.25rem;
     }
     
-    .track-album {
-        display: none; /* Hide album on mobile for space */
-    }
-    
     .track-title {
-        font-size: 0.9rem;
+        font-size: 14px;
+        -webkit-line-clamp: 1;
+        line-clamp: 1;
     }
     
     .track-artist {
-        font-size: 0.8rem;
+        font-size: 12px;
+    }
+    
+    .track-metadata {
+        gap: 0.5rem;
+    }
+    
+    .track-album {
+        display: none;
+    }
+    
+    .track-duration {
+        font-size: 11px;
+    }
+    
+    .track-actions {
+        gap: 0.25rem;
+    }
+    
+    .track-button {
+        width: 36px;
+        height: 36px;
+        font-size: 11px;
+    }
+    
+    .track-button svg {
+        width: 14px;
+        height: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .modern-track {
+        padding: 0.5rem;
+    }
+    
+    .track-title {
+        font-size: 13px;
+    }
+    
+    .track-artist {
+        font-size: 11px;
     }
     
     .track-button {
@@ -259,19 +305,14 @@
         height: 32px;
     }
     
-    .button-icon {
-        width: 18px;
-        height: 18px;
-    }
-}
-
-@media (max-width: 480px) {
-    .track-actions {
-        opacity: 1; /* Always show on very small screens */
+    .track-button svg {
+        width: 12px;
+        height: 12px;
     }
     
-    .track-actions .more-button {
-        display: none; /* Hide more button on small screens */
+    .explicit-badge {
+        font-size: 8px;
+        padding: 1px 4px;
     }
 }
 

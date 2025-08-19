@@ -219,18 +219,21 @@ kbd {
 /* Responsive Design */
 @media (max-width: 768px) {
     .modern-search-container {
-        max-width: none;
-        margin: 1.5rem auto;
-        padding: 0 1rem;
+        margin: 1rem auto;
+        padding: 0 0.5rem;
     }
     
     .search-form {
         gap: 0.5rem;
     }
     
+    .search-input-container {
+        border-radius: 20px;
+    }
+    
     .search-input {
-        font-size: 16px; /* Prevents zoom on iOS */
-        padding: 0.875rem 0;
+        font-size: 14px;
+        padding: 0.75rem 0.75rem 0.75rem 0;
     }
     
     .search-button {
@@ -251,16 +254,21 @@ kbd {
 
 @media (max-width: 480px) {
     .modern-search-container {
-        margin: 1rem auto;
+        padding: 0 0.25rem;
     }
     
-    .search-input::placeholder {
-        font-size: 0.9rem;
+    .search-input {
+        font-size: 13px;
+        padding: 0.625rem 0.5rem 0.625rem 0;
+    }
+    
+    .search-icon-container {
+        padding: 0 0.75rem;
     }
     
     .search-button {
-        width: 44px;
-        height: 44px;
+        padding: 0.625rem 1rem;
+        font-size: 12px;
     }
     
     .search-button-icon {

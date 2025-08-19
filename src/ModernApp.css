@@ -162,9 +162,24 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    background: linear-gradient(135deg, #0d4f20 0%, #1a5c33 25%, #1db954 50%, #1ed760 75%, #0f5d2a 100%);
     color: #ffffff;
     font-family: 'Circular Std', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    position: relative;
+    overflow: hidden;
+}
+
+.app-loading::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        radial-gradient(circle at 30% 40%, rgba(29, 185, 84, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 70% 60%, rgba(30, 215, 96, 0.15) 0%, transparent 60%);
+    pointer-events: none;
 }
 
 .loading-spinner {
@@ -186,9 +201,44 @@
 /* Auth Container Styles */
 .auth-container {
     min-height: 100vh;
-    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    background: linear-gradient(135deg, #0d4f20 0%, #1a5c33 25%, #1db954 50%, #1ed760 75%, #0f5d2a 100%);
     color: #ffffff;
     font-family: 'Circular Std', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        radial-gradient(circle at 15% 25%, rgba(29, 185, 84, 0.3) 0%, transparent 40%),
+        radial-gradient(circle at 85% 75%, rgba(30, 215, 96, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 50% 10%, rgba(21, 163, 74, 0.15) 0%, transparent 60%),
+        radial-gradient(circle at 25% 90%, rgba(34, 197, 94, 0.1) 0%, transparent 45%);
+    animation: backgroundFloat 20s ease-in-out infinite alternate;
+    pointer-events: none;
+}
+
+@keyframes backgroundFloat {
+    0% {
+        background-image: 
+            radial-gradient(circle at 15% 25%, rgba(29, 185, 84, 0.3) 0%, transparent 40%),
+            radial-gradient(circle at 85% 75%, rgba(30, 215, 96, 0.2) 0%, transparent 50%),
+            radial-gradient(circle at 50% 10%, rgba(21, 163, 74, 0.15) 0%, transparent 60%),
+            radial-gradient(circle at 25% 90%, rgba(34, 197, 94, 0.1) 0%, transparent 45%);
+    }
+    100% {
+        background-image: 
+            radial-gradient(circle at 25% 35%, rgba(29, 185, 84, 0.25) 0%, transparent 45%),
+            radial-gradient(circle at 75% 65%, rgba(30, 215, 96, 0.15) 0%, transparent 55%),
+            radial-gradient(circle at 60% 20%, rgba(21, 163, 74, 0.2) 0%, transparent 50%),
+            radial-gradient(circle at 35% 80%, rgba(34, 197, 94, 0.12) 0%, transparent 40%);
+    }
 }
 
 .hero-section {
@@ -208,11 +258,12 @@
     font-size: 72px;
     font-weight: 900;
     margin: 0 0 16px 0;
-    background: linear-gradient(90deg, #ffffff 0%, #1db954 100%);
+    background: linear-gradient(90deg, #ffffff 0%, #1db954 50%, #1ed760 100%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-shadow: 0 4px 20px rgba(29, 185, 84, 0.3);
+    text-shadow: 0 4px 20px rgba(29, 185, 84, 0.4);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
 .hero-subtitle {
@@ -225,8 +276,9 @@
 
 .features-section {
     padding: 80px 24px;
-    background: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(10px);
+    background: rgba(13, 79, 32, 0.4);
+    backdrop-filter: blur(15px);
+    border-top: 1px solid rgba(29, 185, 84, 0.2);
 }
 
 .features-grid {
@@ -238,19 +290,39 @@
 }
 
 .feature-card {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(29, 185, 84, 0.08);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(29, 185, 84, 0.2);
     border-radius: 16px;
     padding: 32px 24px;
     text-align: center;
     transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(29, 185, 84, 0.05) 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
 }
 
 .feature-card:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(29, 185, 84, 0.15);
     transform: translateY(-4px);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 32px rgba(29, 185, 84, 0.2);
+    border-color: rgba(29, 185, 84, 0.4);
+}
+
+.feature-card:hover::before {
+    opacity: 1;
 }
 
 .feature-icon {

@@ -19,3 +19,6 @@ npm-debug.log*
 
 # Ignore Yarn lock file
 yarn.lock
+
+# Local Netlify folder
+.netlify

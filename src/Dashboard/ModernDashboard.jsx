@@ -12,6 +12,7 @@ const ModernDashboard = ({ onAuthChange }) => {
     const [user, setUser] = useState(null);
     const [activeView, setActiveView] = useState('home'); // home, search, library, playlist
     const [isLoading, setIsLoading] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     
     // Search state
     const [query, setQuery] = useState("");
@@ -185,6 +186,20 @@ const ModernDashboard = ({ onAuthChange }) => {
         onAuthChange?.(false);
     };
 
+    const toggleMobileMenu = () => {
+        setIsMobileMenuOpen(!isMobileMenuOpen);
+    };
+
+    const closeMobileMenu = () => {
+        setIsMobileMenuOpen(false);
+    };
+
+    // Close mobile menu when view changes
+    const handleViewChange = (view) => {
+        setActiveView(view);
+        closeMobileMenu();
+    };
+
     if (isLoading && !user) {
         return (
             <div className="dashboard-loading">
@@ -198,8 +213,14 @@ const ModernDashboard = ({ onAuthChange }) => {
 
     return (
         <div className="modern-dashboard">
+            {/* Mobile Overlay */}
+            <div 
+                className={`mobile-overlay ${isMobileMenuOpen ? 'open' : ''}`}
+                onClick={closeMobileMenu}
+            ></div>
+
             {/* Sidebar Navigation */}
-            <aside className="dashboard-sidebar">
+            <aside className={`dashboard-sidebar ${isMobileMenuOpen ? 'open' : ''}`}>
                 <div className="sidebar-header">
                     <div className="logo-section">
                         <svg className="jamming-logo" viewBox="0 0 24 24">
@@ -214,7 +235,7 @@ const ModernDashboard = ({ onAuthChange }) => {
                         <li>
                             <button 
                                 className={`nav-item ${activeView === 'home' ? 'active' : ''}`}
-                                onClick={() => setActiveView('home')}
+                                onClick={() => handleViewChange('home')}
                             >
                                 <svg viewBox="0 0 24 24" className="nav-icon">
                                     <path fill="currentColor" d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
@@ -225,7 +246,7 @@ const ModernDashboard = ({ onAuthChange }) => {
                         <li>
                             <button 
                                 className={`nav-item ${activeView === 'search' ? 'active' : ''}`}
-                                onClick={() => setActiveView('search')}
+                                onClick={() => handleViewChange('search')}
                             >
                                 <svg viewBox="0 0 24 24" className="nav-icon">
                                     <path fill="currentColor" d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
@@ -236,7 +257,7 @@ const ModernDashboard = ({ onAuthChange }) => {
                         <li>
                             <button 
                                 className={`nav-item ${activeView === 'library' ? 'active' : ''}`}
-                                onClick={() => setActiveView('library')}
+                                onClick={() => handleViewChange('library')}
                             >
                                 <svg viewBox="0 0 24 24" className="nav-icon">
                                     <path fill="currentColor" d="M20 2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 5h-3v5.5c0 1.38-1.12 2.5-2.5 2.5S10 13.88 10 12.5s1.12-2.5 2.5-2.5c.57 0 1.08.19 1.5.51V5h4v2zM4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6z"/>
@@ -251,7 +272,7 @@ const ModernDashboard = ({ onAuthChange }) => {
                     <div className="create-playlist-section">
                         <button 
                             className="create-playlist-btn"
-                            onClick={startNewPlaylist}
+                            onClick={() => { startNewPlaylist(); closeMobileMenu(); }}
                         >
                             <svg viewBox="0 0 24 24" className="plus-icon">
                                 <path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
@@ -267,7 +288,7 @@ const ModernDashboard = ({ onAuthChange }) => {
                                 <li key={playlist.id}>
                                     <button 
                                         className={`playlist-item ${currentPlaylist?.id === playlist.id ? 'active' : ''}`}
-                                        onClick={() => selectPlaylist(playlist)}
+                                        onClick={() => { selectPlaylist(playlist); closeMobileMenu(); }}
                                     >
                                         <div className="playlist-cover">
                                             {playlist.images?.[0]?.url ? (
@@ -314,6 +335,11 @@ const ModernDashboard = ({ onAuthChange }) => {
                 {/* Top Bar */}
                 <header className="main-header">
                     <div className="header-navigation">
+                        <button className="mobile-menu-btn" onClick={toggleMobileMenu}>
+                            <svg viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                            </svg>
+                        </button>
                         <button className="nav-back" disabled>
                             <svg viewBox="0 0 24 24">
                                 <path fill="currentColor" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.42-1.41L7.83 13H20v-2z"/>
